@@ -214,5 +214,5 @@
   template:
     src: CIS_HTTPD_audit.j2
     dest: 'Scored2.{{ansible_date_time.date}}.{{ansible_date_time.hour}}{{ansible_date_time.minute}}.txt'
-  connection: local
-  run_once: yes
+  delegate_to: localhost
+  run_once: true
