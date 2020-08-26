@@ -1,219 +1,218 @@
 ---
 
-
-    - name: (Scored) check_2.2 Ensure the Log Config Module is Enabled
-      shell: /usr/sbin/httpd -M | grep log_config
-      register: check_2_2
-      failed_when: False
+- name: (Scored) check_2.2 Ensure the Log Config Module is Enabled
+  shell: /usr/sbin/httpd -M | grep log_config
+  register: check_2_2
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_2_2
 
-    - name: (Scored) check_2.3 Ensure the WebDAV Modules are disabled
-      shell: /usr/sbin/httpd -M | grep ' dav_[[:print:]]+module'
-      register: check_2_3
-      failed_when: False
+- name: (Scored) check_2.3 Ensure the WebDAV Modules are disabled
+  shell: /usr/sbin/httpd -M | grep ' dav_[[:print:]]+module'
+  register: check_2_3
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_2_3
 
 
-    - name: (Scored) check_2.4 Ensure the Status Module is disabled
-      shell: /usr/sbin/httpd -M | egrep 'status_module'
-      register: check_2_4
-      failed_when: False
+- name: (Scored) check_2.4 Ensure the Status Module is disabled
+  shell: /usr/sbin/httpd -M | egrep 'status_module'
+  register: check_2_4
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_2_4
 
-    - name: (Scored) check_2.5 Ensure the Autoindex Module is disabled
-      shell: /usr/sbin/httpd -M | grep autoindex_module
-      register: check_2_5
-      failed_when: False
+- name: (Scored) check_2.5 Ensure the Autoindex Module is disabled
+  shell: /usr/sbin/httpd -M | grep autoindex_module
+  register: check_2_5
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_2_5
 
-    - name: (Scored) check_2.6 Ensure the Proxy Modules are disabled
-      shell: /usr/sbin/httpd -M | grep proxy_
-      register: check_2_6
-      failed_when: False
+- name: (Scored) check_2.6 Ensure the Proxy Modules are disabled
+  shell: /usr/sbin/httpd -M | grep proxy_
+  register: check_2_6
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_2_6
 
-    - name: (Scored) check_2.7 Ensure the User Directories Module is diabled
-      shell: /usr/sbin/httpd -M | grep userdir_
-      register: check_2_7
-      failed_when: False
+- name: (Scored) check_2.7 Ensure the User Directories Module is diabled
+  shell: /usr/sbin/httpd -M | grep userdir_
+  register: check_2_7
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_2_7
 
-    - name: (Scored) check_2.8 Ensure the Info Module is disabled
-      shell: /usr/sbin/httpd -M | egrep 'info_module'
-      register: check_2_8
-      failed_when: False
+- name: (Scored) check_2.8 Ensure the Info Module is disabled
+  shell: /usr/sbin/httpd -M | egrep 'info_module'
+  register: check_2_8
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_2_8
 
-    - name: (Scored) check_2.9 Ensure the basic and digest authentication modules are disabled
-      shell: /usr/sbin/httpd -M | egrep 'auth_basic_module|auth_digest_module'
-      register: check_2_9
-      failed_when: False
+- name: (Scored) check_2.9 Ensure the basic and digest authentication modules are disabled
+  shell: /usr/sbin/httpd -M | egrep 'auth_basic_module|auth_digest_module'
+  register: check_2_9
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_2_9
 
-      #More can be put into 3.1 to make it more effective, but it satisfies the requirement
-      #of not having root run the web server.
-    - name: (Scored) check_3.1 Ensure the Apache Web Server Runs as a Non-Root User
-      shell: ps axu | grep httpd | grep -v '^root' | head -1
-      register: check_3_1
-      failed_when: False
+  #More can be put into 3.1 to make it more effective, but it satisfies the requirement
+  #of not having root run the web server.
+- name: (Scored) check_3.1 Ensure the Apache Web Server Runs as a Non-Root User
+  shell: ps axu | grep httpd | grep -v '^root' | head -1
+  register: check_3_1
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_1
 
-    - name: "(Scored) check_3.2 Ensure the {{ check_3_1.stdout.split(\" \")[0] }} User has an invalid shell"
-      shell: "grep {{ check_3_1.stdout.split(\" \")[0] }} /etc/passwd"
-      register: check_3_2
-      failed_when: False
+- name: "(Scored) check_3.2 Ensure the {{ check_3_1.stdout.split(\" \")[0] }} User has an invalid shell"
+  shell: "grep {{ check_3_1.stdout.split(\" \")[0] }} /etc/passwd"
+  register: check_3_2
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_2
 
-    - name: "(Scored) check_3.3 Ensure the {{ check_3_1.stdout.split(\" \")[0] }} account is locked"
-      shell: "passwd -S {{ check_3_1.stdout.split(\" \")[0] }} "
-      register: check_3_3
-      failed_when: False
+- name: "(Scored) check_3.3 Ensure the {{ check_3_1.stdout.split(\" \")[0] }} account is locked"
+  shell: "passwd -S {{ check_3_1.stdout.split(\" \")[0] }} "
+  register: check_3_3
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_3
 
-    - name: (Scored) check_3.4 Ensure the Apache directories and files are owned by root
-      shell: find /etc/httpd \! -user root -ls
-      register: check_3_4
-      failed_when: False
+- name: (Scored) check_3.4 Ensure the Apache directories and files are owned by root
+  shell: find /etc/httpd \! -user root -ls
+  register: check_3_4
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_4
 
-    - name: (Scored) check_3.5 Ensure the Group is set correctly on Apache Directories and Files
-      shell: find /etc/httpd -path /etc/httpd/htdocs -prune -o \! -group root -ls
-      register: check_3_5
-      failed_when: False
+- name: (Scored) check_3.5 Ensure the Group is set correctly on Apache Directories and Files
+  shell: find /etc/httpd -path /etc/httpd/htdocs -prune -o \! -group root -ls
+  register: check_3_5
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_5
 
-    - name: (Scored) check_3.6 Ensure that Write Access on Apache Directories and Files is Restricted
-      shell: find /etc/httpd \! -type l -perm /o=w -ls
-      register: check_3_6
-      failed_when: False
+- name: (Scored) check_3.6 Ensure that Write Access on Apache Directories and Files is Restricted
+  shell: find /etc/httpd \! -type l -perm /o=w -ls
+  register: check_3_6
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_6
 
-    - name: (Scored) check_3.7 Ensure that the core dump directory is secured
-      shell: grep -i coredumpdirectory /etc/httpd/conf/*
-      register: check_3_7
-      failed_when: False
+- name: (Scored) check_3.7 Ensure that the core dump directory is secured
+  shell: grep -i coredumpdirectory /etc/httpd/conf/*
+  register: check_3_7
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_7
 
-    - name: (Scored) check_3.8 Ensure that the lock file is secured
-      shell: /usr/sbin/httpd -M | grep -i Mutex
-      register: check_3_8
-      failed_when: False
+- name: (Scored) check_3.8 Ensure that the lock file is secured
+  shell: /usr/sbin/httpd -M | grep -i Mutex
+  register: check_3_8
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_8
 
-    - name: (Scored) check_3.9 Ensure that the pid file is secured
-      shell: ls -ld `/usr/sbin/httpd -V | grep -i pidlog | awk -F= '{print $2}' | awk -F/ '{print "/" $2 "/" $3}'`
-      register: check_3_9
-      failed_when: False
+- name: (Scored) check_3.9 Ensure that the pid file is secured
+  shell: ls -ld `/usr/sbin/httpd -V | grep -i pidlog | awk -F= '{print $2}' | awk -F/ '{print "/" $2 "/" $3}'`
+  register: check_3_9
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_9
 
-    - name: (Scored) check_3.10 Ensure that the scoreboard file is secured
-      shell: grep -i scoreboard /etc/httpd/conf/*
-      register: check_3_10
-      failed_when: False
+- name: (Scored) check_3.10 Ensure that the scoreboard file is secured
+  shell: grep -i scoreboard /etc/httpd/conf/*
+  register: check_3_10
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_10
 
-    - name: (Scored) check_3.11 Ensure that the group write access for the Apache directories and files is properly restricted
-      shell: find -L /etc/httpd \! -type l -perm /g=w -ls
-      register: check_3_11
-      failed_when: False
+- name: (Scored) check_3.11 Ensure that the group write access for the Apache directories and files is properly restricted
+  shell: find -L /etc/httpd \! -type l -perm /g=w -ls
+  register: check_3_11
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_11
 
-    - name: (Scored) check_3.12 Ensure that the group write access for the Document Root Directories and files is properly restricted
-      shell: " find -L /etc/httpd -group {{ check_3_1.stdout.split(\" \")[0] }} -perm /g=w -ls "
-      register: check_3_12
-      failed_when: False
+- name: (Scored) check_3.12 Ensure that the group write access for the Document Root Directories and files is properly restricted
+  shell: " find -L /etc/httpd -group {{ check_3_1.stdout.split(\" \")[0] }} -perm /g=w -ls "
+  register: check_3_12
+  failed_when: False
 
 #    - name: debug check
 #      debug:
 #        var: check_3_12
 
-    - name: (Scored) check_4.1 Ensure Access to OS Root Directory is deined by default
-      shell:  perl -ne 'print if /^ *<Directory *\//i .. /<\/Directory/i' /etc/httpd/conf/httpd.conf
-      register: check_4_1
-      failed_when: False
+- name: (Scored) check_4.1 Ensure Access to OS Root Directory is deined by default
+  shell:  perl -ne 'print if /^ *<Directory *\//i .. /<\/Directory/i' /etc/httpd/conf/httpd.conf
+  register: check_4_1
+  failed_when: False
 
-    - name: debug check
-      debug:
-        var: check_4_1
+#    - name: debug check
+#      debug:
+#        var: check_4_1
 
-    - name: (Scored) check_4.4 Ensure OverRide is disabled for all directories
-      shell:  grep -i AllowOverride /etc/httpd/conf/httpd.conf
-      register: check_4_4
-      failed_when: False
+- name: (Scored) check_4.4 Ensure OverRide is disabled for all directories
+  shell:  grep -i AllowOverride /etc/httpd/conf/httpd.conf
+  register: check_4_4
+  failed_when: False
 
-    - name: debug check
-      debug:
-        var: check_4_4
+#    - name: debug check
+#      debug:
+#       var: check_4_4
 
-    - name: (Scored) check_5.1 Ensure Options for the OS Root Directory are restricted
-      shell:  perl -ne 'print if /^ *<Directory */i .. /<\/Directory/i' /etc/httpd/conf/httpd.conf | grep 'Directory /' -A 4
-      register: check_5_1
-      failed_when: False
+- name: (Scored) check_5.1 Ensure Options for the OS Root Directory are restricted
+  shell:  perl -ne 'print if /^ *<Directory */i .. /<\/Directory/i' /etc/httpd/conf/httpd.conf | grep 'Directory /' -A 4
+  register: check_5_1
+  failed_when: False
 
-    - name: debug check
-      debug:
-        var: check_5_1
+#    - name: debug check
+#     debug:
+#        var: check_5_1
 
-    - name: "Create the final report of CIS HTTPD Scored2 at {{ansible_date_time.date}}"
-      template:
-        src: CIS_HTTPD_audit.j2
-        dest: '{{env}}.Scored2.{{ansible_date_time.date}}.{{ansible_date_time.hour}}{{ansible_date_time.minute}}.txt'
-      connection: local
-      run_once: yes
+- name: "Create the final report of CIS HTTPD Scored2 at {{ansible_date_time.date}}"
+  template:
+    src: CIS_HTTPD_audit.j2
+    dest: '{{env}}.Scored2.{{ansible_date_time.date}}.{{ansible_date_time.hour}}{{ansible_date_time.minute}}.txt'
+  connection: local
+  run_once: yes
