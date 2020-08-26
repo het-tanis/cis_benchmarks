@@ -213,6 +213,18 @@
 - name: "Create the final report of CIS HTTPD Scored2 at {{ansible_date_time.date}}"
   template:
     src: CIS_HTTPD_audit.j2
-    dest: 'Scored2.{{ansible_date_time.date}}.{{ansible_date_time.hour}}{{ansible_date_time.minute}}.txt'
+    dest: '/tmp/CIS_HTTPD_2.4_benchmark.txt'
+  delegate_to: localhost
+  run_once: true
+
+- name: CIS_HTTPD Benchmark output capture
+  shell: "cat /tmp/CIS_HTTPD_2.4_benchmark.txt"
+  register: CIS_HTTPD_report
+  delegate_to: localhost
+  run_once: true
+
+- name: show me the patch report
+  debug:
+    var: CIS_HTTPD_report.stdout
   delegate_to: localhost
   run_once: true
