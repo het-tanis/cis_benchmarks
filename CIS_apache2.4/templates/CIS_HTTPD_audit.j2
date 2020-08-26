@@ -4,7 +4,7 @@ Scored report at {{ ansible_date_time.date }} on {{ ansible_date_time.time }}
 Server Scores
 #------------------------------------------------------------------------------
 {% for host in ansible_play_hosts_all %}
-{{ host }}
+{{ hostvars[host].ansible_hostname }}
  Section 1 Checks: Not scored
  Section 2 Checks:
 {% if hostvars[host].check_2_2.rc == 0 %}
