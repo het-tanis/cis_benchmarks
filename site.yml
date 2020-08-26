@@ -1,0 +1,16 @@
+---
+
+###############################################################################
+#Author: Het-Tanis
+#Description: An audit for how secure HTTPD is in an environment
+#Date: 5 Feb 2020
+###############################################################################
+
+- name: Start of CIS HTTPD Audit
+  hosts: all
+  vars:
+  gather_facts: True
+  become: True
+
+  roles:
+    - CIS_apache2.4
