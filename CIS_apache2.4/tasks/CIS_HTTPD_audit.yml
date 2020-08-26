@@ -213,6 +213,6 @@
 - name: "Create the final report of CIS HTTPD Scored2 at {{ansible_date_time.date}}"
   template:
     src: CIS_HTTPD_audit.j2
-    dest: '{{group[0]}}.Scored2.{{ansible_date_time.date}}.{{ansible_date_time.hour}}{{ansible_date_time.minute}}.txt'
+    dest: 'Scored2.{{ansible_date_time.date}}.{{ansible_date_time.hour}}{{ansible_date_time.minute}}.txt'
   connection: local
   run_once: yes
