@@ -1,0 +1,17 @@
+---
+
+###############################################################################
+#Author: Het-Tanis
+#Description: An audit for how secure Ubuntu 18.04 is, out of the box, in 
+# an environment
+#Date: 3 Sep 2020
+###############################################################################
+
+- name: Start of CIS Ubuntu Audit
+  hosts: all
+  vars:
+  gather_facts: True
+  become: True
+
+  roles:
+    - CIS_Ubuntu_18.04
