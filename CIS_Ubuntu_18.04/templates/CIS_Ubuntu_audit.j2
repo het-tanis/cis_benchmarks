@@ -36,7 +36,7 @@ Server Scores
 {% else %}
   {{ hostvars[host].ansible_hostname }} passed check 1.1.1.6
 {% endif %}
-{% if hostvars[host].check_1.1.2.rc == 0 %}
+{% if hostvars[host].check_1_1_2.rc == 0 %}
   {{ hostvars[host].ansible_hostname }} passed check 1.1.2
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.2 - Ensure that /tmp is on it's own partition

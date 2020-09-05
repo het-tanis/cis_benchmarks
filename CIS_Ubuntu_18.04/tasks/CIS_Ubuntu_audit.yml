@@ -7,7 +7,7 @@
 
 - name: (Scored) check_1.1.2 Ensure separate partition for /tmp
   shell: ' mount | grep "/tmp " '
-  register: check_1.1.2
+  register: check_1_1_2
   failed_when: False
 
 #- name: debug check
