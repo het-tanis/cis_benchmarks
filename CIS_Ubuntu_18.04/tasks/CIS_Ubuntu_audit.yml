@@ -5,9 +5,9 @@
   register: filesystems_check
   failed_when: False
 
-    - name: debug check
-      debug:
-        var: filesystems_check
+- name: debug check
+  debug:
+    var: filesystems_check
 
 - name: "Create the final report of CIS Ubuntu Scored2 at {{ansible_date_time.date}}"
   template:
