@@ -1,13 +1,18 @@
 ---
 
-- name: (Scored) check_2.2 Ensure the Log Config Module is Enabled
+- name: (Scored) check_1 Ensure the Log Config Module is Enabled
   shell: 'lsmod | egrep -i "cramfs|freevxfs|jffs2|hfs|hfsplus|udf"'
   register: filesystems_check
   failed_when: False
 
-- name: debug check
-  debug:
-    var: filesystems_check
+- name: (Scored) check_1.1.2 Ensure separate partition for /tmp
+  shell: ' mount | grep "/tmp " '
+  register: check_1.1.2
+  failed_when: False
+
+#- name: debug check
+#  debug:
+#    var: filesystems_check
 
 - name: "Create the final report of CIS Ubuntu Scored2 at {{ansible_date_time.date}}"
   template:
