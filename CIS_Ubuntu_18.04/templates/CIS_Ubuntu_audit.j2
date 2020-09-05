@@ -40,5 +40,11 @@ Server Scores
   {{ hostvars[host].ansible_hostname }} passed check 1.1.2
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.2 - Ensure that /tmp is on it's own partition
+{% if 'nodev' in hostvars[host].check_1_1_2.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.3
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.3 - Ensure that /tmp has nodev option set
 {% endif %}
+{% endif %}
+
 {% endfor %}
