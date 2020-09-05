@@ -30,9 +30,14 @@
   register: check_var_log_audit
   failed_when: False
 
-- name: (Scored) check_1.1.12 Ensure separate partition for /home
+- name: (Scored) check_1.1.12-14 Ensure separate partition for /home
   shell: ' mount | grep "/home " '
   register: check_home
+  failed_when: False
+
+- name: (Scored) check_1.1.14 Check values for /dev/shm
+  shell: ' mount | grep "/dev/shm " '
+  register: check_dev_shm
   failed_when: False
 
 #- name: debug check

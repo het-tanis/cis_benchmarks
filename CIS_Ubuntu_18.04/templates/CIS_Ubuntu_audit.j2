@@ -1,4 +1,4 @@
-CIS_HTTPD_2.4 Apache against running server
+CIS_Ubuntu18.04 check against running server (Only Scored Checks)
 Scored report at {{ ansible_date_time.date }} on {{ ansible_date_time.time }}
 
 Server Scores
@@ -113,7 +113,33 @@ Server Scores
 {% endif %}
 {% if hostvars[host].check_home.rc == 0 %}
   {{ hostvars[host].ansible_hostname }} passed check 1.1.12
+{% if 'nodev' in hostvars[host].check_home.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.13
 {% else %}
-  {{ hostvars[host].ansible_hostname }} failed check 1.1.12 - Ensure that /home is on it's own partitio
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.13 - Ensure that /home has nodev option set
 {% endif %}
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.12 - Ensure that /home is on it's own partition
+{% if 'nodev' in hostvars[host].check_home.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.13
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.13 - Ensure that /home has nodev option set
+{% endif %}
+{% endif %}
+{% if 'nodev' in hostvars[host].check_dev_shm.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.14
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.14 - Ensure that /dev/shm has nodev option set
+{% endif %}
+{% if 'nosuid' in hostvars[host].check_dev_shm.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.15
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.15 - Ensure that /dev/shm has nosuid option set
+{% endif %}
+{% if 'noexec' in hostvars[host].check_dev_shm.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.16
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.16 - Ensure that /dev/shm has noexec option set
+{% endif %}
+
 {% endfor %}
