@@ -33,7 +33,7 @@
 - name: Send something simple to sandbox server
   ansible_discord_webhook:
     webhook_url: "{{discord_webhook_url}}"
-    content: "{{CIS_HTTPD_report.stdout}}"
+    content: "{{CIS_Ubuntu_report.stdout}}"
   when: discord_webhook_url is defined
   delegate_to: localhost
   run_once: true
