@@ -61,5 +61,10 @@ Server Scores
   {{ hostvars[host].ansible_hostname }} failed check 1.1.4 - Ensure that /tmp has nosuid option set
 {% endif %}
 {% endif %}
+{% if hostvars[host].check_var.rc == 0 %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.5
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.5 - Ensure that /var is on it's own partition
+{% endif %}
 
 {% endfor %}

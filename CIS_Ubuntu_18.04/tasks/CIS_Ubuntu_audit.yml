@@ -5,9 +5,14 @@
   register: filesystems_check
   failed_when: False
 
-- name: (Scored) check_1.1.2 Ensure separate partition for /tmp
+- name: (Scored) check_1.1.2 1.1.3 1.1.4 Ensure separate partition for /tmp and options
   shell: ' mount | grep "/tmp " '
   register: check_tmp
+  failed_when: False
+
+- name: (Scored) check_1.1.5 Ensure separate partition for /var
+  shell: ' mount | grep "/var " '
+  register: check_var
   failed_when: False
 
 #- name: debug check
