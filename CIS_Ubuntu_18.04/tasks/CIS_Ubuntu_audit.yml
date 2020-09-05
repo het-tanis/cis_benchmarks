@@ -1,7 +1,7 @@
 ---
 
 - name: (Scored) check_2.2 Ensure the Log Config Module is Enabled
-  shell: 'lsmod | egrep -i "cramfs|freevxfs|jffs2|hfs|hfsplus|udf"''
+  shell: 'lsmod | egrep -i "cramfs|freevxfs|jffs2|hfs|hfsplus|udf"'
   register: filesystems_check
   failed_when: False
 
