@@ -20,6 +20,21 @@
   register: check_var_tmp
   failed_when: False
 
+- name: (Scored) check_1.1.10 Ensure separate partition for /var/log
+  shell: ' mount | grep "/var/log " '
+  register: check_var_log
+  failed_when: False
+
+- name: (Scored) check_1.1.11 Ensure separate partition for /var/log/audit
+  shell: ' mount | grep "/var/log/audit " '
+  register: check_var_log_audit
+  failed_when: False
+
+- name: (Scored) check_1.1.12 Ensure separate partition for /home
+  shell: ' mount | grep "/home " '
+  register: check_home
+  failed_when: False
+
 #- name: debug check
 #  debug:
 #    var: filesystems_check
