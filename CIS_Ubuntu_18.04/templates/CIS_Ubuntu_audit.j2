@@ -36,19 +36,29 @@ Server Scores
 {% else %}
   {{ hostvars[host].ansible_hostname }} passed check 1.1.1.6
 {% endif %}
-{% if hostvars[host].check_1_1_2.rc == 0 %}
+{% if hostvars[host].check_tmp.rc == 0 %}
   {{ hostvars[host].ansible_hostname }} passed check 1.1.2
-{% if 'nodev' in hostvars[host].check_1_1_2.stdout %}
+{% if 'nodev' in hostvars[host].check_tmp.stdout %}
   {{ hostvars[host].ansible_hostname }} passed check 1.1.3
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.3 - Ensure that /tmp has nodev option set
 {% endif %}
+{% if 'nosuid' in hostvars[host].check_tmp.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.4
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.4 - Ensure that /tmp has nosuid option set
+{% endif %}
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.2 - Ensure that /tmp is on it's own partition
-{% if 'nodev' in hostvars[host].check_1_1_2.stdout %}
+{% if 'nodev' in hostvars[host].check_tmp.stdout %}
   {{ hostvars[host].ansible_hostname }} passed check 1.1.3
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.3 - Ensure that /tmp has nodev option set
+{% endif %}
+{% if 'nosuid' in hostvars[host].check_tmp.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.4
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.4 - Ensure that /tmp has nosuid option set
 {% endif %}
 {% endif %}
 
