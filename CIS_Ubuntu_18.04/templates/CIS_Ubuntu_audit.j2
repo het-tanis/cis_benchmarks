@@ -5,130 +5,35 @@ Server Scores
 #------------------------------------------------------------------------------
 {% for host in ansible_play_hosts_all %}
 {{ hostvars[host].ansible_hostname }}
- Section 1 Checks: Not scored
- Section 2 Checks:
-{% if hostvars[host].check_2_2.rc == 0 %}
-  {{ host }} passed check 2.2
+ Section 1 Checks:
+{% if 'cramfs' in hostvars[host].filesystems_check.stdout %}
+  {{ host }} failed check 1.1.1.1 - Ensure Cramf is disabled
 {% else %}
-  {{ host }} failed check 2.2 - Ensure the Log Config Module is Enabled
+  {{ host }} passed check 1.1.1.1
 {% endif %}
-{% if hostvars[host].check_2_3.rc == 1 %}
-  {{ host }} passed check 2.3
+{% if 'freevxfs' in hostvars[host].filesystems_check.stdout %}
+  {{ host }} failed check 1.1.1.2 - Ensure freevxfs is disabled
 {% else %}
-  {{ host }} failed check 2.3 - Ensure the WebDAV Modules are disabled
+  {{ host }} passed check 1.1.1.2
 {% endif %}
-{% if hostvars[host].check_2_4.rc == 1 %}
-  {{ host }} passed check 2.4
+{% if 'jffs2' in hostvars[host].filesystems_check.stdout %}
+  {{ host }} failed check 1.1.1.3 - Ensure jffs2 is disabled
 {% else %}
-  {{ host }} failed check 2.4 - Ensure the Status Module is disabled
+  {{ host }} passed check 1.1.1.3
 {% endif %}
-{% if hostvars[host].check_2_5.rc == 1 %}
-  {{ host }} passed check 2.5
+{% if 'hfs' in hostvars[host].filesystems_check.stdout %}
+  {{ host }} failed check 1.1.1.4 - Ensure hfs is disabled
 {% else %}
-  {{ host }} failed check 2.5 - Ensure the Autoindex Module is disabled
+  {{ host }} passed check 1.1.1.4
 {% endif %}
-{% if hostvars[host].check_2_6.rc == 1 %}
-  {{ host }} passed check 2.6
+{% if 'hfsplus' in hostvars[host].filesystems_check.stdout %}
+  {{ host }} failed check 1.1.1.5 - Ensure hfsplus is disabled
 {% else %}
-  {{ host }} failed check 2.6 - Ensure the Proxy Modules are disabled
+  {{ host }} passed check 1.1.1.5
 {% endif %}
-{% if hostvars[host].check_2_7.rc == 1 %}
-  {{ host }} passed check 2.7
+{% if 'udf' in hostvars[host].filesystems_check.stdout %}
+  {{ host }} failed check 1.1.1.6 - Ensure udf is disabled
 {% else %}
-  {{ host }} failed check 2.7 - Ensure the User Directories Module is diabled
+  {{ host }} passed check 1.1.1.6
 {% endif %}
-{% if hostvars[host].check_2_8.rc == 1 %}
-  {{ host }} passed check 2.8
-{% else %}
-  {{ host }} failed check 2.8 - Ensure the Info Module is disabled
-{% endif %}
-{% if hostvars[host].check_2_9.rc == 1 %}
-  {{ host }} passed check 2.9
-{% else %}
-  {{ host }} failed check 2.9 - Ensure the basic and digest authentication modules are disabled
-{% endif %}
- Section 3 Checks:
-{% if hostvars[host].check_3_1.rc == 0 %}
-  {{ host }} passed check 3.1
-{% else %}
-  {{ host }} failed check 3.1 - Ensure the Apache Web Server Runs as a Non-Root User
-{% endif %}
-{% if 'nologin' in hostvars[host].check_3_2.stdout %}
-  {{ host }} passed check 3.2
-{% else %}
-  {{ host }} failed check 3.2 - Ensure the Apache User has an invalid shell
-{% endif %}
-{% if 'locked' in hostvars[host].check_3_3.stdout %}
-  {{ host }} passed check 3.3
-{% else %}
-  {{ host }} failed check 3.3 - Ensure the Apache account is locked
-{% endif %}
-{% if hostvars[host].check_3_4.stdout_lines | length %}
-  {{ host }} failed check 3.4 - Ensure the Apache directories and files are owned by root
-{% else %}
-  {{ host }} passed check 3.4
-{% endif %}
-{% if hostvars[host].check_3_5.stdout_lines | length %}
-  {{ host }} failed check 3.5 - Ensure the Group is set correctly on Apache Directories and Files
-{% else %}
-  {{ host }} passed check 3.5
-{% endif %}
-{% if hostvars[host].check_3_6.stdout_lines | length %}
-  {{ host }} failed check 3.6 - Ensure that Write Access on Apache Directories and Files is Restricted
-{% else %}
-  {{ host }} passed check 3.6
-{% endif %}
-{% if hostvars[host].check_3_7.stdout_lines | length %}
-  {{ host }} failed check 3.7 - Ensure the core dump directory is secured
-{% else %}
-  {{ host }} passed check 3.7
-{% endif %}
-{% if hostvars[host].check_3_8.rc == 1 %}
-  {{ host }} passed check 3.8
-{% else %}
-  {{ host }} failed check 3.8 - Ensure the lock file is secured
-{% endif %}
-{% if 'apache' in hostvars[host].check_3_9.stdout or 'root' in hostvars[host].check_3_9.stdout %}
-  {{ host }} passed check 3.9
-{% else %}
-  {{ host }} failed check 3.9 - Ensure the pid file is secured
-{% endif %}
-{% if hostvars[host].check_3_10.rc == 1 %}
-  {{ host }} passed check 3.10
-{% else %}
-  {{ host }} failed check 3.10 - Ensure the scoreboard file is secured
-{% endif %}
-{% if hostvars[host].check_3_11.stdout_lines | length %}
-  {{ host }} failed check 3.11 - Ensure that the group write access for the Apache directories and files is properly restricted
-{% else %}
-  {{ host }} passed check 3.11
-{% endif %}
-{% if hostvars[host].check_3_12.stdout_lines | length %}
-  {{ host }} failed check 3.12 - Ensure that the group write access for the Document Root Directories and Files is properly restricted
-{% else %}
-  {{ host }} passed check 3.12
-{% endif %}
- Section 4 Checks:
-{% if 'Require all denied' in hostvars[host].check_4_1.stdout %}
-  {{ host }} passed check 4.1
-{% else %}
-  {{ host }} failed check 4.1 - Ensure Access to OS root directory is denied by default
-{% endif %}
-{% if 'AllowOverride none' in hostvars[host].check_4_1.stdout %}
-  {{ host }} passed check 4.3
-{% else %}
-  {{ host }} failed check 4.3 - Ensure OverRide is disabled for the OS Root directory
-{% endif %}
-{% if 'AllowOverrideList' in hostvars[host].check_4_4.stdout %}
-  {{ host }} failed check 4.4 - Ensure OverRide is disabled for all directories
-{% else %}
-  {{ host }} passed check 4.4
-{% endif %}
- Section 5 Checks:
-{% if 'Options None' not in hostvars[host].check_5_1.stdout %}
-  {{ host }} failed check 5.1 - Ensure Options for the OS Root Directory are restricted
-{% else %}
-  {{ host }} passed check 5.1
-{% endif %}
-
 {% endfor %}
