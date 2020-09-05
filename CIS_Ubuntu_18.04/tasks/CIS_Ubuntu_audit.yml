@@ -1,0 +1,39 @@
+---
+
+- name: (Scored) check_2.2 Ensure the Log Config Module is Enabled
+  shell: 'lsmod | egrep -i "cramfs|freevxfs|jffs2|hfs|hfsplus|udf"''
+  register: filesystems_check
+  failed_when: False
+
+    - name: debug check
+      debug:
+        var: filesystems_check
+
+- name: "Create the final report of CIS Ubuntu Scored2 at {{ansible_date_time.date}}"
+  template:
+    src: CIS_Ubuntu_audit.j2
+    dest: '/tmp/CIS_Ubuntu_benchmark.txt'
+  delegate_to: localhost
+  run_once: true
+
+- name: CIS_HTTPD Benchmark output capture
+  shell: "cat /tmp/CIS_Ubuntu_benchmark.txt"
+  register: CIS_Ubuntu_report
+  delegate_to: localhost
+  run_once: true
+
+- name: show me the patch report
+  debug:
+    var: CIS_Ubuntu_report.stdout
+  delegate_to: localhost
+  run_once: true
+
+# Send the output to discord when we're ready
+
+- name: Send something simple to sandbox server
+  ansible_discord_webhook:
+    webhook_url: "{{discord_webhook_url}}"
+    content: "{{CIS_HTTPD_report.stdout}}"
+  when: discord_webhook_url is defined
+  delegate_to: localhost
+  run_once: true
