@@ -78,6 +78,11 @@ Server Scores
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.8 - Ensure that /var/tmp has nosuid option set
 {% endif %}
+{% if 'noexec' in hostvars[host].check_var_tmp.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.9
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.9 - Ensure that /var/tmp has noexec option set
+{% endif %}
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.6 - Ensure that /var/tmp is on it's own partition
 {% if 'nodev' in hostvars[host].check_var_tmp.stdout %}
@@ -90,6 +95,25 @@ Server Scores
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.8 - Ensure that /var/tmp has nosuid option set
 {% endif %}
+{% if 'noexec' in hostvars[host].check_var_tmp.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.9
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.9 - Ensure that /var/tmp has noexec option set
 {% endif %}
-
+{% endif %}
+{% if hostvars[host].check_var_log.rc == 0 %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.10
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.10 - Ensure that /var/log is on it's own partitio
+{% endif %}
+{% if hostvars[host].check_var_log_audit.rc == 0 %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.11
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.11 - Ensure that /var/log/audit is on it's own partitio
+{% endif %}
+{% if hostvars[host].check_home.rc == 0 %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.12
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.12 - Ensure that /home is on it's own partitio
+{% endif %}
 {% endfor %}
