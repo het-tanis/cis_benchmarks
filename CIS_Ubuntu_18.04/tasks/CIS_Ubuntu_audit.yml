@@ -15,6 +15,11 @@
   register: check_var
   failed_when: False
 
+- name: (Scored) check_1.1.6 1.1.7 1.1.8 Ensure separate partition for /var/tmp
+  shell: ' mount | grep "/var/tmp " '
+  register: check_var_tmp
+  failed_when: False
+
 #- name: debug check
 #  debug:
 #    var: filesystems_check
