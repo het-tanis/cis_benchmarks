@@ -108,10 +108,17 @@
 
 # Send the output to discord when we're ready
 
-- name: Send something simple to sandbox server
-  ansible_discord_webhook:
-    webhook_url: "{{discord_webhook_url}}"
-    content: "{{CIS_Ubuntu_report.stdout}}"
+#- name: Send something simple to sandbox server
+#  ansible_discord_webhook:
+#    webhook_url: "{{discord_webhook_url}}"
+#    content: "{{CIS_Ubuntu_report.stdout}}"
+#  when: discord_webhook_url is defined
+#  delegate_to: localhost
+#  run_once: true
+
+#Added because messages in discord have a 2000 unicode character limit
+- name: Send a file to sandbox channel in discord 
+  shell: "curl -i -H 'Expect: application/json' -F file=/tmp/CIS_Ubuntu_benchmark.txt -F 'payload_json={ \"wait\": true, \"content\": \"CIS_Ubuntu_report\", \"username\": \"Ubuntu_Check\" }' {{ discord_webhook_url }}"
   when: discord_webhook_url is defined
   delegate_to: localhost
   run_once: true
