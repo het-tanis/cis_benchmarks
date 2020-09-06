@@ -172,5 +172,9 @@ Server Scores
 {% else %}
   {{ host }} failed check 1.4.2 - Ensure bootloader password is set  
 {% endif %}
-
+{% if hostvars[host].check_1_4_3.stdout_lines | length %}
+  {{ host }} failed check 1.4.3 - Ensure authentication required for single user mode
+{% else %}
+  {{ host }} passed check 1.4.3
+{% endif %}
 {% endfor %}
