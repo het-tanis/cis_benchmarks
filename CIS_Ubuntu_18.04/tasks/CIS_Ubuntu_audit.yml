@@ -126,6 +126,7 @@
       Content-Type: 'multipart/form-data'
     body: 
       'file': '/tmp/CIS_Ubuntu_benchmark.txt'
+      'content': 'Output of CIS_Ubuntu18.04_Benchmark'
       'username': 'CIS_Ubuntu'
   when: discord_webhook_url is defined
   delegate_to: localhost
