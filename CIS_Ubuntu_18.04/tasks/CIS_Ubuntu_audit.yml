@@ -41,7 +41,7 @@
   failed_when: False
 
 - name: (Scored) check_1.1.20 Ensure sticky bit is set on all world-writable directories
-  shell: "df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null"
+  shell: "df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d \\( -perm -0002 -a ! -perm -1000 \\) 2>/dev/null"
   register: check_1_1_20
   failed_when: False
 
