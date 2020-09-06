@@ -118,7 +118,7 @@
 
 #Added because messages in discord have a 2000 unicode character limit
 - name: Send a file to sandbox channel in discord 
-  shell: "curl -i -H 'Expect: application/json' -F file=/tmp/CIS_Ubuntu_benchmark.txt -F 'payload_json={ \"wait\": true, \"content\": \"CIS_Ubuntu_report\", \"username\": \"Ubuntu_Check\" }' {{ discord_webhook_url }}"
+  shell: "curl -i -H 'Content-Type: multipart/form-data' -F file=/tmp/CIS_Ubuntu_benchmark.txt {{ discord_webhook_url }}"
   when: discord_webhook_url is defined
   delegate_to: localhost
   run_once: true
