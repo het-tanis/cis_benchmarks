@@ -167,4 +167,10 @@ Server Scores
 {% else %}
   {{ host }} passed check 1.4.1
 {% endif %}
+{% if hostvars[host].check_1_4_2.rc == 0 %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.4.2
+{% else %}
+  {{ host }} failed check 1.4.2 - Ensure bootloader password is set  
+{% endif %}
+
 {% endfor %}
