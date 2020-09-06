@@ -64,6 +64,12 @@
   stat:
     path: /boot/grub/grub.cfg
   register: check_1_4_1
+  failed_when: False
+
+- name: (Scored) check 1.4.2 Ensure bootloader password is set
+  shell: ' egrep "^set superusers|^password" /boot/grub/grub.cfg '
+  register: check_1_4_2
+  failed_when: False
 
 #- name: debug check
 #  debug:
