@@ -60,14 +60,14 @@
   register: check_1_3_2
   failed_when: False
 
-- name: Stat
+- name: (Scored) check 1.4.1 Ensure Permissions on boot loader config are configured
   stat:
     path: /boot/grub/grub.cfg
-  register: stat
+  register: check_1_4_1
 
-- name: debug check
-  debug:
-    var: stat
+#- name: debug check
+#  debug:
+#    var: stat
 
 - name: "Create the final report of CIS Ubuntu Scored2 at {{ansible_date_time.date}}"
   template:
