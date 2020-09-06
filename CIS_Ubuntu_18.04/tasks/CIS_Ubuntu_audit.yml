@@ -71,6 +71,11 @@
   register: check_1_4_2
   failed_when: False
 
+- name: (Scored) check 1.4.3 Ensure authentication required for single user mode
+  shell: 'grep ^root:[*\!]: /etc/shadow'
+  register: check_1_4_3
+  failed_when: False
+
 #- name: debug check
 #  debug:
 #    var: stat
