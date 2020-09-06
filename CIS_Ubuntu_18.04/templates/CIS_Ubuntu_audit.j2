@@ -4,7 +4,7 @@ Scored report at {{ ansible_date_time.date }} on {{ ansible_date_time.time }}
 Server Scores
 #------------------------------------------------------------------------------
 {% for host in ansible_play_hosts_all %}
-{{ hostvars[host].ansible_hostname }}
+{{ hostvars[host].ansible_hostname }} - IP:{{ host }}
  Section 1 Checks:
 {% if 'cramfs' in hostvars[host].filesystems_check.stdout %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.1.1 - Ensure Cramf is disabled
@@ -142,39 +142,45 @@ Server Scores
   {{ hostvars[host].ansible_hostname }} failed check 1.1.16 - Ensure that /dev/shm has noexec option set
 {% endif %}
 {% if hostvars[host].check_1_1_20.stdout_lines | length %}
-  {{ host }} failed check 1.1.20 - Ensure sticky bit is set on all world-writable directories
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.20 - Ensure sticky bit is set on all world-writable directories
 {% else %}
-  {{ host }} passed check 1.1.20
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.20
 {% endif %}
 {% if hostvars[host].check_1_1_21.rc == 0 %}
-  {{ host }} failed check 1.1.21 - Disable Automounting
+  {{ hostvars[host].ansible_hostname }} failed check 1.1.21 - Disable Automounting
 {% else %}
-  {{ host }} passed check 1.1.21
+  {{ hostvars[host].ansible_hostname }} passed check 1.1.21
 {% endif %}
 {% if hostvars[host].check_1_3_1.rc == 1 %}
-  {{ host }} failed check 1.3.1 - Aide is not installed
-  {{ host }} failed check 1.3.2 - Ensure filesystem integrity is regularly checked
+  {{ hostvars[host].ansible_hostname }} failed check 1.3.1 - Aide is not installed
+  {{ hostvars[host].ansible_hostname }} failed check 1.3.2 - Ensure filesystem integrity is regularly checked
 {% else %}
-  {{ host }} passed check 1.3.1
+  {{ hostvars[host].ansible_hostname }} passed check 1.3.1
 {% if hostvars[host].check_1_3_2.rc != 0 %}
-  {{ host }} failed check 1.3.2 - Ensure Filesystem integrity is regularly checked (with Aide)
+  {{ hostvars[host].ansible_hostname }} failed check 1.3.2 - Ensure Filesystem integrity is regularly checked (with Aide)
 {% else %}
-  {{ host }} passed check 1.3.2
+  {{ hostvars[host].ansible_hostname }} passed check 1.3.2
 {% endif %}
 {% endif %}
 {% if (hostvars[host].check_1_4_1.stat.mode | regex_search('00$')) is none %}
-  {{ host }} failed check 1.4.1 - Ensure permissions on bootloader config are configured  
+  {{ hostvars[host].ansible_hostname }} failed check 1.4.1 - Ensure permissions on bootloader config are configured  
 {% else %}
-  {{ host }} passed check 1.4.1
+  {{ hostvars[host].ansible_hostname }} passed check 1.4.1
 {% endif %}
 {% if hostvars[host].check_1_4_2.rc == 0 %}
   {{ hostvars[host].ansible_hostname }} passed check 1.4.2
 {% else %}
-  {{ host }} failed check 1.4.2 - Ensure bootloader password is set  
+  {{ hostvars[host].ansible_hostname }} failed check 1.4.2 - Ensure bootloader password is set  
 {% endif %}
 {% if hostvars[host].check_1_4_3.stdout_lines | length %}
-  {{ host }} failed check 1.4.3 - Ensure authentication required for single user mode
+  {{ hostvars[host].ansible_hostname }} failed check 1.4.3 - Ensure authentication required for single user mode
 {% else %}
-  {{ host }} passed check 1.4.3
+  {{ hostvars[host].ansible_hostname }} passed check 1.4.3
 {% endif %}
+{% if '0' in hostvars[host].check_1_5_1.stdout %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.5.1
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.5.1- Ensure core dumps are restricted
+{% endif %}
+
 {% endfor %}

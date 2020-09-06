@@ -76,6 +76,13 @@
   register: check_1_4_3
   failed_when: False
 
+- name: (Scored) check 1.5.1 Ensure core dumps are restricted
+  shell: 'sysctl fs.suid_dumpable'
+  register: check_1_5_1
+  failed_when: False
+
+
+
 #- name: debug check
 #  debug:
 #    var: stat
