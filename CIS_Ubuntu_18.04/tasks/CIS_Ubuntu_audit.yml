@@ -121,7 +121,7 @@
   uri:
     url: "{{discord_webhook_url}}"
     method: 'POST'
-    body_format: form-data
+    body_format: form-urlencoded
     headers:
       Content-Type: 'multipart/form-data'
     body: 
