@@ -141,5 +141,15 @@ Server Scores
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.1.16 - Ensure that /dev/shm has noexec option set
 {% endif %}
+{% if hostvars[host].check_1_1_20.stdout_lines | length %}
+  {{ host }} failed check 1.1.20 - Ensure sticky bit is set on all world-writable directories
+{% else %}
+  {{ host }} passed check 1.1.20
+{% endif %}
+{% if hostvars[host].check_1_1_21.rc == 0 %}
+  {{ host }} failed check 1.1.21 - Disable Automounting
+{% else %}
+  {{ host }} passed check 1.1.21
+{% endif %}
 
 {% endfor %}
