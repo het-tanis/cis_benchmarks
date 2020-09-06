@@ -99,26 +99,27 @@
   delegate_to: localhost
   run_once: true
 
-- name: show me the patch report
-  debug:
-    msg: "{{ item }}"
+#- name: show me the patch report
+#  debug:
+#    msg: "{{ item }}"
+#  delegate_to: localhost
+#  run_once: true
+#  loop:
+#    - "{{ CIS_Ubuntu_report.stdout[0:1990]}}"
+#    - "{{ CIS_Ubuntu_report.stdout[1991:3981]}}"
+
+# Send the output to discord when we're ready
+
+- name: Send something simple to sandbox server
+  ansible_discord_webhook:
+    webhook_url: "{{discord_webhook_url}}"
+    content: "{{ item }}"
+  when: discord_webhook_url is defined
   delegate_to: localhost
   run_once: true
   loop:
     - "{{ CIS_Ubuntu_report.stdout[0:1990]}}"
     - "{{ CIS_Ubuntu_report.stdout[1991:3981]}}"
-
-# Send the output to discord when we're ready
-
-#- name: Send something simple to sandbox server
-#  ansible_discord_webhook:
-#    webhook_url: "{{discord_webhook_url}}"
-#    content: "{{ item }}"
-#  when: discord_webhook_url is defined
-#  delegate_to: localhost
-#  run_once: true
-#  loop:
-#    - "{{ CIS_Ubuntu_report.stdout | regex_findall('.{2000}') }}"
 
 #Added because messages in discord have a 2000 u0nicode character limit
 #- name: Send a file to sandbox channel in discord 
