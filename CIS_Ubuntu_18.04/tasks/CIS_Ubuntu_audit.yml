@@ -50,6 +50,16 @@
   register: check_1_1_21
   failed_when: False
 
+- name: (Scored) check 1.3.1 AIDE is installed
+  shell: dpkg -s aide
+  register: check_1_3_1
+  failed_when: False
+
+- name: (Scored) check 1.3.2 Ensure Filesystem is regularly checked (with aide)
+  shell: (crontab -l | grep aide) || (grep -r aide /etc/cron.* /etc/crontab)
+  register: check_1_3_2
+  failed_when: False
+
 #- name: debug check
 #  debug:
 #    var: filesystems_check
