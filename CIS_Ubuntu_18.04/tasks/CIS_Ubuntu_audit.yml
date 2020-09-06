@@ -121,13 +121,12 @@
   uri:
     url: "{{discord_webhook_url}}"
     method: 'POST'
-    body_format: form-urlencoded
+    body_format: form-data
     headers:
       Content-Type: 'multipart/form-data'
     body: 
-      " {{ lookup('file','/tmp/CIS_Ubuntu_benchmark.txt') }}"
-      'content': 'Output of CIS_Ubuntu18.04_Benchmark'
-      'username': 'CIS_Ubuntu'
+      'file' : '/tmp/CIS_Ubuntu_benchmark.txt'
+      'payload_json' : {"embeds":[{"title": "CIS_Ubuntu_Benchmark"}]}
   when: discord_webhook_url is defined
   delegate_to: localhost
   run_once: true
