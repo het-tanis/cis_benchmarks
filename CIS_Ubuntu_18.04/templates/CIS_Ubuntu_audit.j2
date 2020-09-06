@@ -162,7 +162,7 @@ Server Scores
   {{ host }} passed check 1.3.2
 {% endif %}
 {% endif %}
-{% if (int(hostvars[host].check_1_4_1.stat.mode, 8) & 0o77) == 0 %}
+{% if (hostvars[host].check_1_4_1.stat.mode | regex_search('00$') is true %}
   {{ host }} passed check 1.4.1
 {% else %}
   {{ host }} failed check 1.4.1 - Ensure permissions on bootloader config are configured
