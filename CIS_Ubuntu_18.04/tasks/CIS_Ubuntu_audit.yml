@@ -124,28 +124,29 @@
 
 # Send the output to discord when we're ready
 
-- name: Send something simple to sandbox server
-  ansible_discord_webhook:
-    webhook_url: "{{discord_webhook_url}}"
-    content: "{{ item }}"
-  when: discord_webhook_url is defined
-  delegate_to: localhost
-  run_once: true
-  loop:
-    - "{{ CIS_Ubuntu_report.stdout[0:1990]}}"
-    - "{{ CIS_Ubuntu_report.stdout[1991:3981]}}"
-
-#Added because messages in discord have a 2000 u0nicode character limit
-#- name: Send a file to sandbox channel in discord 
-#  uri:
-#    url: "{{discord_webhook_url}}"
-#    method: 'POST'
-#    body_format: form-urlencoded
-#    headers:
-#      Content-Type: 'multipart/form-data'
-#    body: 
-#      'file' : '/tmp/CIS_Ubuntu_benchmark.txt'
-#      'payload_json' : {"embeds":[{"title": "CIS_Ubuntu_Benchmark"}]}
+#- name: Send something simple to sandbox server
+#  ansible_discord_webhook:
+#    webhook_url: "{{discord_webhook_url}}"
+#    content: "{{ item }}"
 #  when: discord_webhook_url is defined
 #  delegate_to: localhost
 #  run_once: true
+#  loop:
+#    - "{{ CIS_Ubuntu_report.stdout[0:1990]}}"
+#    - "{{ CIS_Ubuntu_report.stdout[1991:3981]}}"
+
+#Added because messages in discord have a 2000 u0nicode character limit
+- name: Send a file to sandbox channel in discord 
+  uri:
+    url: "{{discord_webhook_url}}"
+    method: 'POST'
+    body_format: form-urlencoded
+    src: /tmp/CIS_Ubuntu_benchmark.txt
+    headers:
+      Content-Type: 'multipart/form-data'
+    body: 
+      'file' : '/tmp/CIS_Ubuntu_benchmark.txt'
+      'payload_json' : {"embeds":[{"title": "CIS_Ubuntu_Benchmark"}]}
+  when: discord_webhook_url is defined
+  delegate_to: localhost
+  run_once: true
