@@ -140,13 +140,12 @@
   uri:
     url: "{{discord_webhook_url}}"
     method: 'POST'
-    body_format: json
+    body_format: form-urlencoded
     headers:
       Content-Type: 'multipart/form-data'
-    body: {
-      'file' : { 'file1' : '/tmp/CIS_Ubuntu_benchmark.txt'},
-      'payload_json' : { "wait": true, "content": "CIS_Ubuntu_Benchmark", "username": "AWX_Report" }
-      } 
+    body: 
+    - [ file, '/tmp/CIS_Ubuntu_benchmark.txt' ]
+    - [ payload_json, { "wait": true, "content": "CIS_Ubuntu_Benchmark", "username": "AWX_Report" } ]
   when: discord_webhook_url is defined
   delegate_to: localhost
   run_once: true
