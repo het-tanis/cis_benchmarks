@@ -81,6 +81,17 @@
   register: check_1_5_1
   failed_when: False
 
+- name: (Scored) check 1.5.3 Ensure address space laout randomization ASLR is enabled
+  shell: 'sysctl kernel.randomize_va_space'
+  register: check_1_5_3
+  failed_when: False
+
+- name: (Scored) check 1.5.4 Ensure prelink is disabled
+  shell: dpkg -s prelink
+  register: check_1_5_4
+  failed_when: False
+
+
 
 #- name: debug check
 #  debug:
@@ -99,14 +110,14 @@
   delegate_to: localhost
   run_once: true
 
-#- name: show me the patch report
-#  debug:
-#    msg: "{{ item }}"
-#  delegate_to: localhost
-#  run_once: true
-#  loop:
-#    - "{{ CIS_Ubuntu_report.stdout[0:1990]}}"
-#    - "{{ CIS_Ubuntu_report.stdout[1991:3981]}}"
+- name: show me the patch report
+  debug:
+    msg: "{{ item }}"
+  delegate_to: localhost
+  run_once: true
+  loop:
+    - "{{ CIS_Ubuntu_report.stdout[0:1990]}}"
+    - "{{ CIS_Ubuntu_report.stdout[1991:3981]}}"
 
 # Send the output to discord when we're ready
 
