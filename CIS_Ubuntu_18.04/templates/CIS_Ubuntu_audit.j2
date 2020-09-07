@@ -180,7 +180,7 @@ Server Scores
 {% if '0' in hostvars[host].check_1_5_1.stdout %}
   {{ hostvars[host].ansible_hostname }} passed check 1.5.1
 {% else %}
-  {{ hostvars[host].ansible_hostname }} failed check 1.5.1- Ensure core dumps are restricted
+  {{ hostvars[host].ansible_hostname }} failed check 1.5.1 - Ensure core dumps are restricted
 {% endif %}
 {% if hostvars[host].check_1_5_3.rc == 0 %}
   {{ hostvars[host].ansible_hostname }} passed check 1.5.3
