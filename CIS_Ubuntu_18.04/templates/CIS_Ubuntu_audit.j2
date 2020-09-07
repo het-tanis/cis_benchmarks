@@ -192,5 +192,11 @@ Server Scores
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.5.4 - Ensure prelink is disabled
 {% endif %}
-
+{% if hostvars[host].check_selinux.rc == 1 %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.6.1.1 - Ensure SELinux is not disabled in bootloader configuration
+  {{ hostvars[host].ansible_hostname }} failed check 1.6.1.2 - Ensure the SELinux state is enforcing
+  {{ hostvars[host].ansible_hostname }} failed check 1.6.1.3 - Ensure SELinux policy is configured
+  {{ hostvars[host].ansible_hostname }} failed check 1.6.1.4 - Ensure that no unconfined Daemons exist
+{% else %}
+{% endif %}
 {% endfor %}
