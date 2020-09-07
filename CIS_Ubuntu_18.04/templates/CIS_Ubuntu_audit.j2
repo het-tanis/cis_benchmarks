@@ -182,5 +182,15 @@ Server Scores
 {% else %}
   {{ hostvars[host].ansible_hostname }} failed check 1.5.1- Ensure core dumps are restricted
 {% endif %}
+{% if hostvars[host].check_1_5_3.rc == 0 %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.5.3
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.5.3 - Ensure ASLR is enabled
+{% endif %}
+{% if hostvars[host].check_1_5_5.rc == 1 %}
+  {{ hostvars[host].ansible_hostname }} passed check 1.5.4
+{% else %}
+  {{ hostvars[host].ansible_hostname }} failed check 1.5.4 - Ensure prelink is disabled
+{% endif %}
 
 {% endfor %}
