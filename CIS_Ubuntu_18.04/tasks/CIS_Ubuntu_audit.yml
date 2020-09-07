@@ -91,7 +91,10 @@
   register: check_1_5_4
   failed_when: False
 
-
+- name: (Scored) check for existence of SELINUX utilities
+  shell: dpkg -s policycoreutils
+  register: check_selinux
+  failed_when: False
 
 #- name: debug check
 #  debug:
