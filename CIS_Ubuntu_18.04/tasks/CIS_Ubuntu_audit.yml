@@ -145,8 +145,10 @@
       Content-Type: 'multipart/form-data'
     body: {
       'file' : '/tmp/CIS_Ubuntu_benchmark.txt',
-      'payload_json' : {"embeds":[{"title": "CIS_Ubuntu_Benchmark"}]}
+      'payload_json' : { "wait": true, "content": "CIS_Ubuntu_Benchmark", "username": "AWX_Report" }
       } 
   when: discord_webhook_url is defined
   delegate_to: localhost
   run_once: true
+
+#      'payload_json' : {"embeds":[{"title": "CIS_Ubuntu_Benchmark"}]}
