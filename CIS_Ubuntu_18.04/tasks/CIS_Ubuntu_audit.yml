@@ -144,7 +144,7 @@
     headers:
       Content-Type: 'multipart/form-data'
     body: 
-      'file' : "{{ lookup('file','/tmp/CIS_Ubuntu_benchmark.txt') }}",
+      'file' : "{{ lookup('file','/tmp/CIS_Ubuntu_benchmark.txt') }}"
       'payload_json' : { "wait": true, "content": "CIS_Ubuntu_Benchmark", "username": "AWX_Report" }  
   when: discord_webhook_url is defined
   delegate_to: localhost
