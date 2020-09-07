@@ -145,6 +145,7 @@
       Content-Type: 'multipart/form-data'
     body: {
       'file' : "{{ lookup('file','/tmp/CIS_Ubuntu_benchmark.txt') }}",
+      'content' : "Simple test"
       'payload_json' : { "wait": true, "content": "CIS_Ubuntu_Benchmark", "username": "AWX_Report" }
       }
   when: discord_webhook_url is defined
