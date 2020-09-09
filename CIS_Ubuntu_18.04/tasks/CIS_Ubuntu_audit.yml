@@ -136,17 +136,24 @@
 #    - "{{ CIS_Ubuntu_report.stdout[1991:3981]}}"
 
 #Added because messages in discord have a 2000 unicode character limit 
-- name: Send a file to sandbox channel in discord 
-  uri:
-    url: "{{discord_webhook_url}}"
-    method: 'POST'
-    body_format: json
-    headers:
-      Content-Type: 'application/json'
-    body: {
-      'file' : "@/tmp/CIS_Ubuntu_benchmark.txt",
-      'payload_json' : { "wait": true, "content": "CIS_Ubuntu_Benchmark", "username": "AWX_Report" }  
-    } 
+#- name: Send a file to sandbox channel in discord 
+#  uri:
+#    url: "{{discord_webhook_url}}"
+#    method: 'POST'
+#    body_format: json
+#    headers:
+#      Content-Type: 'application/json'
+#    body: {
+#      'file' : "@/tmp/CIS_Ubuntu_benchmark.txt",
+#      'payload_json' : { "wait": true, "content": "CIS_Ubuntu_Benchmark", "username": "AWX_Report" }  
+#    } 
+#  when: discord_webhook_url is defined
+#  delegate_to: localhost
+#  run_once: true
+
+- name: Running this via curl to output
+  command: 'curl -i -H \'Expect: application/json\' -F file=@/tmp/CIS_Ubuntu_benchmark.txt -F \'payload_json={ "wait": true, "content": "Ansible CIS Ubuntu Check", "username": "Ansible_CIS_Ubuntu" }\'' " {{ discord_webhook_url }}"
+  failed_when: False
   when: discord_webhook_url is defined
   delegate_to: localhost
   run_once: true
