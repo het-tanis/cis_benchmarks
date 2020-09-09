@@ -152,7 +152,7 @@
 #  run_once: true
 
 - name: Running this via curl to output
-  command: 'curl -i -H \'Expect: application/json\' -F file=@/tmp/CIS_Ubuntu_benchmark.txt -F \'payload_json={ "wait": true, "content": "Ansible CIS Ubuntu Check", "username": "Ansible_CIS_Ubuntu" }\'' " {{ discord_webhook_url }}"
+  command: "curl -i -H 'Expect: application/json' -F file=@/tmp/CIS_Ubuntu_benchmark.txt -F 'payload_json={ \"wait\": true, \"content\": \"Ansible CIS Ubuntu Check\", \"username\": \"Ansible_CIS_Ubuntu\" }' {{ discord_webhook_url }}"
   failed_when: False
   when: discord_webhook_url is defined
   delegate_to: localhost
