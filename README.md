@@ -1,9 +1,9 @@
 # cis_benchmarks
 CIS Benchmarks as I get around to making them.
 
-# H1 These are meant to be pulled into Ansible Tower or AWX
+# These are meant to be pulled into Ansible Tower or AWX
 
-# H1 Current Benchmark Tests
+# Current Benchmark Tests
 
 | Benchmark Name | Yaml to call role| Status | Notes |
 | ---------------- | ---------------| --------- | ------------------------------ |
